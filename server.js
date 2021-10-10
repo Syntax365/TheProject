@@ -9,7 +9,7 @@ import { Helmet } from "react-helmet";
 import App from "./src/app";
 
 const app = express();
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 app.use(bodyParser.json());
 app.use(express.static("build/public"));
