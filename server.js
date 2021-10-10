@@ -45,9 +45,10 @@ app.get("*", (req, res) => {
           ${helmet.title.toString()}
         </head>
         <body>
+            ${gtmBody}
             <div id="root">${content}</div>
         </body>
-          ${gtmBody}
+          
         <script src="client_bundle.js"></script>
     </html>
   `;
