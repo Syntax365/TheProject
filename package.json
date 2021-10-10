@@ -9,7 +9,9 @@
     "webpack:start": "nodemon --watch build --exec node build/bundle.js",
     "dev": "npm-run-all --parallel webpack:*",
     "build": "webpack --config webpack.client.js && webpack --config webpack.server.js",
-    "start": "npm-run-all --parallel webpack:*"
+    "start": "npm-run-all --parallel webpack:production:* && nodemon --exec node build/bundle.js",
+    "webpack:production:client": "webpack --mode=production --config webpack.client.js",
+    "webpack:production:server": "webpack --mode=production --config webpack.server.js"
   },
   "dependencies": {
     "@babel/core": "^7.15.8",
