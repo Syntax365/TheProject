@@ -12,7 +12,7 @@ class Homepage extends React.Component {
 
   render() {
     return (
-      <div>
+      <>
         {this.head()}
         <h1>Homepage</h1>
         <p>Some Content</p>
@@ -23,7 +23,7 @@ class Homepage extends React.Component {
         >
           click
         </button>
-      </div>
+      </>
     );
   }
 }

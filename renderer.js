@@ -26,7 +26,7 @@ export default function renderer(req, res) {
   const html = `
     <html>
       <head>
-      ${gtmHead}
+            ${gtmHead}
             ${helmet.meta.toString()}
             ${helmet.title.toString()}
         </head>
