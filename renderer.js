@@ -24,11 +24,13 @@ export default function renderer(req, res) {
   const helmet = Helmet.renderStatic();
 
   const html = `
-    <html>
+  <!DOCTYPE html>
+    <html lang="en">
       <head>
             ${gtmHead}
             ${helmet.meta.toString()}
             ${helmet.title.toString()}
+            <meta name="viewport" content="width=320, initial-scale=1">
         </head>
         <body>
             ${gtmBody}
