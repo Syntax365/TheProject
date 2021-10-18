@@ -14,7 +14,7 @@ class Homepage extends React.Component {
     return (
       <>
         {this.head()}
-        <h1>Homepage</h1>
+        <h1>Testing Google Cloud Platform Deploy</h1>
         <p>Some Content</p>
         <button
           onClick={() => {
