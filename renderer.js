@@ -24,6 +24,7 @@ export default function renderer(req, res) {
   const helmet = Helmet.renderStatic();
 
   const html = `
+  <!DOCTYPE html>
     <html lang="en">
       <head>
             ${gtmHead}
