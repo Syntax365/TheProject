@@ -24,7 +24,7 @@ export default function renderer(req, res) {
   const helmet = Helmet.renderStatic();
 
   const html = `
-    <html>
+    <html lang="en">
       <head>
             ${gtmHead}
             ${helmet.meta.toString()}
