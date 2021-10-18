@@ -30,6 +30,7 @@ export default function renderer(req, res) {
             ${gtmHead}
             ${helmet.meta.toString()}
             ${helmet.title.toString()}
+            <meta name="viewport" content="width=320, initial-scale=1">
         </head>
         <body>
             ${gtmBody}

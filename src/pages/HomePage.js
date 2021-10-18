@@ -4,7 +4,14 @@ import { Helmet } from "react-helmet";
 class Homepage extends React.Component {
   head() {
     return (
-      <Helmet>
+      <Helmet
+        meta={[
+          {
+            name: "description",
+            content: "TODO: Add meta page description for SEO",
+          },
+        ]}
+      >
         <title>Homepage</title>
       </Helmet>
     );
