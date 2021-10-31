@@ -1,7 +1,6 @@
 import React from "react";
+import { OAUTH_CLIENT_ID } from "../constants/global";
 import { GoogleLogin } from "react-google-login";
-
-const clientId = "";
 
 function Login() {
   const onSuccess = (res) => {
@@ -15,7 +14,7 @@ function Login() {
   return (
     <div>
       <GoogleLogin
-        clientId={clientId}
+        clientId={OAUTH_CLIENT_ID}
         onSuccess={onSuccess}
         onFailure={onFailure}
         cookiePolicy={"single_host_origin"}
