@@ -1,7 +1,6 @@
 import React from "react";
+import { OAUTH_CLIENT_ID } from "../constants/global";
 import { GoogleLogout } from "react-google-login";
-
-const clientId = "";
 
 function Logout() {
   const onSuccess = () => {
@@ -11,7 +10,7 @@ function Logout() {
   return (
     <div>
       <GoogleLogout
-        clientId={clientId}
+        clientId={OAUTH_CLIENT_ID}
         onLogoutSuccess={onSuccess}
         buttonText="Logout"
       />
