@@ -1,6 +1,9 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
+import Login from "../components/Login";
+import Logout from "../components/Logout";
+
 class Homepage extends React.Component {
   head() {
     return (
@@ -23,13 +26,10 @@ class Homepage extends React.Component {
         {this.head()}
         <h1>Testing Google Cloud Platform Deploy</h1>
         <p>Some Content</p>
-        <button
-          onClick={() => {
-            console.log("test");
-          }}
-        >
-          click
-        </button>
+        <div id="account-feature">
+          <Login />
+          <Logout />
+        </div>
       </>
     );
   }
