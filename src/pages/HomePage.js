@@ -1,6 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
 
+import { connect } from "react-redux";
+
 import Login from "../components/Login";
 import Logout from "../components/Logout";
 
@@ -21,18 +23,45 @@ class Homepage extends React.Component {
   }
 
   render() {
+    const { auth, firstName, lastName } = this.props;
     return (
       <>
         {this.head()}
-        <h1>Testing Google Cloud Platform Deploy</h1>
-        <p>Some Content</p>
-        <div id="account-feature">
-          <Login />
-          <Logout />
+        <h1>
+          {auth && firstName && lastName
+            ? `Welcome to prilltech, ${firstName} ${lastName}!`
+            : "Welcome!"}
+        </h1>
+        <p>
+          Current Initiative: OAuth2.0 Google Integration & Redux State
+          Management System. <br />
+          Feel free to demo the login feature, no data is retained beyond
+          browser storage.
+        </p>
+        <div style={{ paddingBottom: "24px" }} id="account-login-feature">
+          {auth ? <Logout /> : <Login />}
         </div>
+        <button
+          onClick={() => {
+            console.log("Testing Hydration");
+          }}
+        >
+          Hydration Check
+        </button>
       </>
     );
   }
 }
 
-export default Homepage;
+const mapStateToProps = ({ auth, firstName, lastName }) => ({
+  auth,
+  firstName,
+  lastName,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeText: () =>
+    dispatch({ type: "set_firstname", payload: "banana snacks" }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

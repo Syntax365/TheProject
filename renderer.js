@@ -2,6 +2,11 @@ import React from "react";
 import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { Helmet } from "react-helmet";
+
+import { createStore } from "redux";
+import { Provider } from "react-redux";
+import reducers from "./src/reducers";
+
 import App from "./src/app";
 
 const gtmHead = `<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
@@ -14,13 +19,18 @@ const gtmBody = `<noscript><iframe src="https://www.googletagmanager.com/ns.html
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`;
 
 export default function renderer(req, res) {
+  const store = createStore(reducers);
+
   const context = {};
   const content = ReactDOMServer.renderToString(
-    <StaticRouter location={req.url} context={context}>
-      <App />
-    </StaticRouter>,
+    <Provider store={store}>
+      <StaticRouter location={req.url} context={context}>
+        <App />
+      </StaticRouter>
+    </Provider>,
   );
-
+  const preloadedState = store.getState();
+  console.log(preloadedState);
   const helmet = Helmet.renderStatic();
 
   const html = `
@@ -35,7 +45,10 @@ export default function renderer(req, res) {
         <body>
             ${gtmBody}
             <div id="root">${content}</div>
-        </body>   
+        </body>
+        <script>window.__PRELOADED_STATE__ = ${JSON.stringify(
+          preloadedState,
+        ).replace(/</g, "\\u003c")}</script>
         <script src="client_bundle.js"></script>
     </html>`;
 
