@@ -30,7 +30,6 @@ export default function renderer(req, res) {
     </Provider>,
   );
   const preloadedState = store.getState();
-  console.log(preloadedState);
   const helmet = Helmet.renderStatic();
 
   const html = `
