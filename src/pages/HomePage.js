@@ -1,7 +1,8 @@
 import React from "react";
 import { Helmet } from "react-helmet";
-
 import { connect } from "react-redux";
+
+import analytics from "../helper_functions/analytics";
 
 import Login from "../components/Login";
 import Logout from "../components/Logout";
@@ -43,7 +44,11 @@ class Homepage extends React.Component {
         </div>
         <button
           onClick={() => {
-            console.log("Testing Hydration");
+            analytics.track({
+              category: "Home Page - Hydration Button",
+              action: "Click",
+              label: "Click CTA",
+            });
           }}
         >
           Hydration Check
