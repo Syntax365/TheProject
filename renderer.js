@@ -3,9 +3,12 @@ import ReactDOMServer from "react-dom/server";
 import { StaticRouter } from "react-router";
 import { Helmet } from "react-helmet";
 
-import { createStore } from "redux";
+import { createStore, applyMiddleware } from "redux";
 import { Provider } from "react-redux";
+import thunk from "redux-thunk";
 import reducers from "./src/reducers";
+
+import { userData } from "./src/actions/userDataActions";
 
 import App from "./src/app";
 
@@ -14,20 +17,26 @@ const gtmAnalytics = `<script async src="https://www.googletagmanager.com/gtag/j
 const gtmBody = `<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-KGBZ5X2"height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>`;
 
 export default function renderer(req, res) {
-  const store = createStore(reducers);
-
+  const store = createStore(reducers, applyMiddleware(thunk));
   const context = {};
-  const content = ReactDOMServer.renderToString(
-    <Provider store={store}>
-      <StaticRouter location={req.url} context={context}>
-        <App />
-      </StaticRouter>
-    </Provider>,
-  );
-  const preloadedState = store.getState();
-  const helmet = Helmet.renderStatic();
+  const awaitArray = [];
 
-  const html = `
+  awaitArray.push(store.dispatch(userData()));
+
+  Promise.all(awaitArray)
+    .then(() => {
+      const content = ReactDOMServer.renderToString(
+        <Provider store={store}>
+          <StaticRouter location={req.url} context={context}>
+            <App />
+          </StaticRouter>
+        </Provider>
+      );
+
+      const preloadedState = store.getState();
+      const helmet = Helmet.renderStatic();
+
+      const html = `
   <!DOCTYPE html>
     <html lang="en">
       <head>
@@ -42,10 +51,12 @@ export default function renderer(req, res) {
             <div id="root">${content}</div>    
         </body>
         <script>window.__PRELOADED_STATE__ = ${JSON.stringify(
-          preloadedState,
+          preloadedState
         ).replace(/</g, "\\u003c")}</script>
         <script src="client_bundle.js"></script>
     </html>`;
 
-  res.send(html);
+      res.send(html);
+    })
+    .catch(console.error);
 }

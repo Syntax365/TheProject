@@ -12,6 +12,8 @@ function reducer(state = initialState, action) {
       return { ...state, firstName: action.payload };
     case "set_lastname":
       return { ...state, lastName: action.payload };
+    case "set_userdata":
+      return { ...state, userData: action.payload };
     default:
       return { ...state };
   }

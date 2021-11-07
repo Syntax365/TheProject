@@ -1,11 +1,12 @@
 import express from "express";
-import bodyParser from "body-parser";
 import renderer from "./renderer";
+import "regenerator-runtime/runtime.js";
+require("dotenv").config();
 
 const app = express();
 const PORT = process.env.PORT || 8080;
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(express.static("build/public"));
 
 app.get("/robots.txt", (req, res) => {
