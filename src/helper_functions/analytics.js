@@ -6,7 +6,7 @@ const analytics = {
           event_category: args.category,
           event_label: args.label,
         });
-        console.log(args);
+        console.log("Tracking Event:", args);
       }
     } else {
       console.log("Error: gtag not instantiated.");
