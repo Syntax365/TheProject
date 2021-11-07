@@ -3,7 +3,7 @@ module.exports = {
 };
 
 async function getData(
-  bucketName = "gs://prillhub_user_hub",
+  bucketName = "gs://prill-tech.appspot.com",
   fileName = "user_pool.json"
 ) {
   try {
